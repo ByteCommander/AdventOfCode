@@ -1,0 +1,9 @@
+# Git Ignore Patterns
+
+# compiled Python byte code
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyCharm IDE project files
+.idea/
