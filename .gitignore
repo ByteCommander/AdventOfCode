@@ -7,3 +7,6 @@ __pycache__/
 
 # PyCharm IDE project files
 .idea/
+
+# AdventOfCode.com session cookie
+session-cookie.txt
