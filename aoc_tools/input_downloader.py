@@ -9,12 +9,16 @@ AOC_INPUT_URL_PATTERN = "https://adventofcode.com/{year}/day/{day}/input"
 
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) not in (3, 1):
         print("Error! Expected exactly two integer arguments.")
         print("Usage:   {} <YEAR> <DAY>".format(sys.argv[0]))
         exit(1)
 
-    script_name, year, day = sys.argv
+    if len(sys.argv) == 3:
+        script_name, year, day = sys.argv
+    else:
+        year = input("Year: ")
+        day = input("Day:  ")
     created_file, size = download(year, day)
 
     print("Downloaded input file for day {} ({}) and saved {} bytes as {}"

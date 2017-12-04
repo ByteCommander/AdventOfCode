@@ -1,9 +1,7 @@
 import sys
-
 import os
 from bs4 import BeautifulSoup
 import requests
-from getpass import getpass
 
 AOC_AUTH_URL = "https://adventofcode.com/auth/github"
 GITHUB_LOGIN_URL = "https://github.com/session"
@@ -31,7 +29,7 @@ CLIENT_ID = "7bb0a7ec13388aa67963"
 def get_cookie():
     try:
         with open(os.path.join(os.path.dirname(__file__),
-                               "../session-cookie.txt")) as file:
+                               "..", "session-cookie.txt")) as file:
             cookie = file.read().strip()
             if not cookie:
                 raise ValueError("File 'session-cookies.txt' is empty.")
@@ -78,7 +76,8 @@ def get_credentials(provider_name):
           file=sys.stderr)
     print("Email address: ", file=sys.stderr, end="")
     email = input()
-    password = getpass("Password:      ", sys.stderr)
+    print("Password:      ", file=sys.stderr, end="")
+    password = input()
     return email, password
 
 
