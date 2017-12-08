@@ -1,14 +1,15 @@
-# Advent Of Code 2017, day 7, part 1
+# Advent Of Code 2017, day 7, part 2
 # http://adventofcode.com/2017/day/7
 # solution by ByteCommander, 2017-12-07
 
 import re
+from collections import Counter
 
 
 class Node:
     def __init__(self, name, weight, children_names):
         self.name = name
-        self.weigth = weight
+        self.weight = weight
         self.children_names = children_names
         self.children = []
 
@@ -24,26 +25,19 @@ class Node:
         return False
 
     def get_total_weight(self):
-        return sum([child.get_total_weight() for child in self.children]) + self.weigth
+        return sum([child.get_total_weight() for child in self.children]) + self.weight
 
     def is_balanced(self):
-        return len(set(child.get_total_weight for child in self.children)) <= 1
+        return len(set(child.get_total_weight() for child in self.children)) <= 1
 
-    def get_unbalanced_branch(self):
-        for child in self.children:
-            ub = child.get_unbalanced_branch()
-            if ub:
-                return ub + [self]
-
-        if not self.is_balanced():
-            return [self]
-        return None
+    def get_recursive(self):
+        return [self] + sum((child.get_recursive() for child in self.children), [])
 
     def __str__(self):
-        return "{} ({}/{})".format(self.name, self.weigth, self.get_total_weight())
+        return "{} ({}/{})".format(self.name, self.weight, self.get_total_weight())
 
     def __repr__(self):
-        return "{} ({}/{}): [{}] <{}>".format(self.name, self.weigth, self.get_total_weight(),
+        return "{} ({}/{}): [{}] <{}>".format(self.name, self.weight, self.get_total_weight(),
                                               ", ".join(map(repr, self.children)),
                                               ", ".join(map(repr, self.children_names)))
 
@@ -86,10 +80,13 @@ if __name__ == "__main__":
         if len(my_trees) != 1:
             print("ERROR! More than one root!")
         root = my_trees.pop()
-        branch = root.get_unbalanced_branch()
+        nodes = root.get_recursive()
 
-    print(*[(str(x), [*map(str, x.children)]) for x in branch], sep="\n")
-    print("Answer: {} is the unbalanced program."
-          .format([*map(str, branch)]))
+        ws = [n.children for n in nodes if not n.is_balanced()]
+        bad_nodes = ws[-1]
+        weights = [ctr_item[0] for ctr_item in Counter(map(Node.get_total_weight, bad_nodes)).most_common()]
+        good_weight, bad_weight = weights[0], weights[-1]
+        bad_node = [bn for bn in bad_nodes if bn.get_total_weight() == bad_weight][0]
 
-    print("NOT WORKING YET")
+    print("Answer: {} is the correct weight."
+          .format(bad_node.weight - bad_weight + good_weight))
