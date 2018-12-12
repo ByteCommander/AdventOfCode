@@ -17,15 +17,15 @@ for i in range(20):
     print(i, offset, state, sep="\t")
 
     prev_length = len(state)
-    padded_state = "..." + state + "..."
+    padded_state = "...." + state + "...."
 
     state = "".join(
         ".#"[padded_state[current_pot:current_pot + 5] in rules]
-        for current_pot in range(prev_length + 2)
+        for current_pot in range(prev_length + 4)
     )
 
     state = state.lstrip(".")
-    offset -= len(state) - 1 - prev_length
+    offset -= len(state) - 2 - prev_length
     state = state.rstrip(".")
 
 print(i + 1, offset, state, sep="\t")

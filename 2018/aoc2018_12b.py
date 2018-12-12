@@ -23,15 +23,15 @@ for i in range(TARGET):
     state_history[state] = (i, offset)
 
     prev_length, prev_offset = len(state), offset
-    padded_state = "..." + state + "..."
+    padded_state = "...." + state + "...."
 
     state = "".join(
         ".#"[padded_state[current_pot:current_pot + 5] in rules]
-        for current_pot in range(prev_length + 2)
+        for current_pot in range(prev_length + 4)
     )
 
     state = state.lstrip(".")
-    offset -= len(state) - 1 - prev_length
+    offset -= len(state) - 2 - prev_length
     state = state.rstrip(".")
 
     if state in state_history:
