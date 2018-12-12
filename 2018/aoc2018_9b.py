@@ -1,4 +1,4 @@
-# Advent Of Code 2018, day 9, part 1
+# Advent Of Code 2018, day 9, part 2
 # http://adventofcode.com/2018/day/9
 # solution by ByteCommander, 2018-12-09
 import collections

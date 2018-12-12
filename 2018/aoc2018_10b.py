@@ -1,4 +1,4 @@
-# Advent Of Code 2018, day 10, part 1
+# Advent Of Code 2018, day 10, part 2
 # http://adventofcode.com/2018/day/10
 # solution by ByteCommander, 2018-12-10
 
