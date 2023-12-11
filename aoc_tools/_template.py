@@ -20,4 +20,4 @@ bar
 """
 
 if __name__ == "__main__":
-    run(main, TEST_INPUT)
+    run(main, TEST_INPUT, test_only=False)
