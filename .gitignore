@@ -10,6 +10,7 @@ __pycache__/
 
 # AdventOfCode.com session cookie
 session-cookie.txt
+.env
 
 # virtualenv
 venv/
