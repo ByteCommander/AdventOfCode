@@ -2,6 +2,7 @@
 # including a generic main/test executor which handles input files and test strings automatically.
 
 import __main__
+import re
 import time
 from collections.abc import Callable
 from io import StringIO
@@ -30,7 +31,8 @@ def run(main: Callable[[TextIO], None], test_input: str = None, test_only: bool 
 
     if not test_only:
         script_path = Path(__main__.__file__)
-        input_path = script_path.parent / "inputs" / (script_path.name.removesuffix(".py")[:-1] + ".txt")
+        aoc_name = re.search(r"aoc\d+_\d+", script_path.name).group()
+        input_path = script_path.parent / "inputs" / (aoc_name + ".txt")
         with open(input_path) as file:
             real_t1 = time.perf_counter_ns()
             main(file)
