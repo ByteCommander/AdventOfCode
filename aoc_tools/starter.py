@@ -43,7 +43,7 @@ def template_solution(year: int, day: int, part: int = 1) -> None:
 
     with open(path, "w") as out_file:
         out_file.write(tpl.substitute(year=year, day=day, date=date, part=part))
-    print(f"Created solution template file for day {day} ({year}) as {out_file}")
+    print(f"Created solution template file for day {day} ({year}) as {path}")
 
 
 def download(year: int, day: int) -> None:
