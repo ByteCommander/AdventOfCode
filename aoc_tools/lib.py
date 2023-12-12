@@ -2,6 +2,7 @@
 # including a generic main/test executor which handles input files and test strings automatically.
 
 import __main__
+import time
 from collections.abc import Callable
 from io import StringIO
 from pathlib import Path
@@ -18,7 +19,11 @@ def run(main: Callable[[TextIO], None], test_input: str = None, test_only: bool 
     """
     if test_input:
         print("*** TEST ***")
-        main(StringIO(test_input.strip("\n")))
+        test_stream = StringIO(test_input.strip("\n"))
+        test_t1 = time.perf_counter_ns()
+        main(test_stream)
+        test_t2 = time.perf_counter_ns()
+        print(f"Test run took {(test_t2 - test_t1) / 1e6:,.2f}ms.")
 
     if test_input and not test_only:
         print("\n*** REAL ***")
@@ -27,4 +32,7 @@ def run(main: Callable[[TextIO], None], test_input: str = None, test_only: bool 
         script_path = Path(__main__.__file__)
         input_path = script_path.parent / "inputs" / (script_path.name.removesuffix(".py")[:-1] + ".txt")
         with open(input_path) as file:
+            real_t1 = time.perf_counter_ns()
             main(file)
+            real_t2 = time.perf_counter_ns()
+        print(f"Real run took {(real_t2 - real_t1) / 1e6:,.2f}ms.")
