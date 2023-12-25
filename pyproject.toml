@@ -16,6 +16,7 @@ aoc-start = 'aoc_tools.starter:main'
 python = "^3.12"
 python-dotenv = "^1.0.0"
 requests = "^2.31.0"
+numpy = "^1.26.2"
 
 [build-system]
 requires = ["poetry-core"]
