@@ -17,6 +17,7 @@ python = "^3.12"
 python-dotenv = "^1.0.0"
 requests = "^2.31.0"
 numpy = "^1.26.2"
+networkx = "^3.2.1"
 
 [build-system]
 requires = ["poetry-core"]
